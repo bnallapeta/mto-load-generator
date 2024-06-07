@@ -1,0 +1,47 @@
+---
+apiVersion: tenantoperator.stakater.com/v1beta3
+kind: Tenant
+metadata:
+  name: {tenant_name}
+spec:
+  quota: small
+  accessControl:
+    owners:
+      users:
+        - harry
+    editors:
+      users:
+        - hermione
+        - ron
+    viewers:
+      users:
+        - draco
+  namespaces:
+    sandboxes:
+      enabled: true
+      private: true
+    withoutTenantPrefix:
+      - gryffindor
+      - slytherin
+    withTenantPrefix:
+      - hufflepuff
+      - ravenclaw
+    onDeletePurgeNamespaces: true
+    metadata:
+      common:
+        labels:
+          school: hogwarts
+        annotations:
+          magic: true
+      sandbox:
+        labels:
+          type: sandbox
+        annotations:
+          environment: testing
+      specific:
+        - namespaces:
+            - {tenant_name}-gryffindor
+          labels:
+            house: gryffindor
+          annotations:
+            founder: godric
